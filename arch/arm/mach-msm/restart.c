@@ -256,7 +256,11 @@ static void msm_restart_prepare(const char *cmd)
 	set_dload_mode(0);
 
 	/* Write download mode flags if we're panic'ing */
-	set_dload_mode(in_panic);
+
+	/* ## We don't want to panic into dload mode ##
+	 * change in set_dload_mode(in_panic) to re-enable it
+	 */
+	set_dload_mode(0);
 
 	/* Write download mode flags if restart_mode says so */
 	if (restart_mode == RESTART_DLOAD)
@@ -288,6 +292,9 @@ static void msm_restart_prepare(const char *cmd)
 			__raw_writel(0x6f656d00 | code, restart_reason);
 		} else if (!strncmp(cmd, "edl", 3)) {
 			enable_emergency_dload_mode();
+		} else if (!strcmp(cmd, "dload")) {
+			set_dload_mode(1);
+			__raw_writel(0x77665501, restart_reason);
 		} else {
 			__raw_writel(0x77665501, restart_reason);
 		}
