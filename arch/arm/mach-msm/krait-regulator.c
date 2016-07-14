@@ -1195,7 +1195,7 @@ static void glb_init(void __iomem *apcs_gcc_base)
 		writel_relaxed(0x0008736E, apcs_gcc_base + PWR_GATE_CONFIG);
 }
 
-static int __devinit krait_power_probe(struct platform_device *pdev)
+static int  krait_power_probe(struct platform_device *pdev)
 {
 	struct krait_power_vreg *kvreg;
 	struct resource *res, *res_mdd;
@@ -1384,7 +1384,7 @@ out:
 	return rc;
 }
 
-static int __devexit krait_power_remove(struct platform_device *pdev)
+static int  krait_power_remove(struct platform_device *pdev)
 {
 	struct krait_power_vreg *kvreg = platform_get_drvdata(pdev);
 	struct pmic_gang_vreg *pvreg = kvreg->pvreg;
@@ -1398,14 +1398,14 @@ static int __devexit krait_power_remove(struct platform_device *pdev)
 	return 0;
 }
 
-static struct of_device_id krait_power_match_table[] __initdata = {
+static struct of_device_id krait_power_match_table[]  = {
 	{ .compatible = "qcom,krait-regulator", },
 	{}
 };
 
 static struct platform_driver krait_power_driver = {
 	.probe	= krait_power_probe,
-	.remove	= __devexit_p(krait_power_remove),
+	.remove	= krait_power_remove,
 	.driver	= {
 		.name		= KRAIT_REGULATOR_DRIVER_NAME,
 		.of_match_table	= krait_power_match_table,
@@ -1413,7 +1413,7 @@ static struct platform_driver krait_power_driver = {
 	},
 };
 
-static struct of_device_id krait_pdn_match_table[] __initdata = {
+static struct of_device_id krait_pdn_match_table[] = {
 	{ .compatible = "qcom,krait-pdn", },
 	{}
 };
