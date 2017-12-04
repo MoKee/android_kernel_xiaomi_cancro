@@ -78,7 +78,7 @@
 
 		adsp_mem: adsp_region {
 			linux,contiguous-region;
-			reg = <0 0x3F00000>;
+			reg = <0 0x4100000>;
 			label = "adsp_mem";
 		};
 
@@ -87,6 +87,13 @@
 			reg = <0 0x1100000>;
 			label = "qseecom_mem";
 		};
+
+ 		audio_mem: audio_region {
+ 			linux,contiguous-region;
+			linux,reserve-region;
+ 			reg = <0 0x614000>;
+			label = "audio_mem";
+ 	       };
 
 	};
 
